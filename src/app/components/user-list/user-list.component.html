@@ -1,0 +1,19 @@
+<div class="d-flex justify-content-center mt-4">
+    <div class="d-flex justify-content-between border rounded col-10">
+        <div class="mx-3 d-flex">
+            <p class="mt-1">Ryan de Graaf</p>
+        </div>
+        <div>
+            <app-button
+            [icon]="faInfo"
+            (btnClick)="userInfo()"
+            ></app-button>
+            <app-button
+            [icon]="faPencil"
+            ></app-button>
+            <app-button
+            [icon]="faTrashCan"
+            ></app-button>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+.pagina-container {
+    background-color: #F5F5F5;
+    width: 800px;
+    min-height: 100vh;
+}
+
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #41474f;
+}
+
+.btn-primary {
+    width: 7rem;
+}
