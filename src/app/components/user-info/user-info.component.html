@@ -1,7 +1,11 @@
     <div class="d-flex align-items-center flex-column">
         <h1>User Info</h1>
 
-        <p class="lh-sm fs-5">Ryan de Graaf <br> drveklaan 3 <br> 2526II alkmaar</p>
+        <p class="lh-sm fs-5">
+            {{ userDetails.firstname}} {{userDetails.infix}} {{userDetails.lastname}}<br>
+             {{userDetails.streetname}} {{userDetails.housenumber}} {{userDetails.addition}} <br>
+             {{userDetails.postalcode}} {{userDetails.residence}}
+        </p>
     </div>
 
 

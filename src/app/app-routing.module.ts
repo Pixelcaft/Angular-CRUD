@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserListComponent } from './components/user-list/user-list.component';
-import { FormComponent } from './components/form/form.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
-
-// const routes: Routes = [];
+import { AddUserComponent } from './components/add-user/add-user.component';
+import { FormComponent } from './components/form/form.component';
 
 const routes: Routes = [
-  {path: '', component: UserListComponent},
-  {path: 'form', component: FormComponent},
-  {path: 'user-info', component: UserInfoComponent}
-]
+  { path: '', component: UserListComponent },
+  { path: 'add-user', component: FormComponent },
+  {path: 'update-user/:id', component: FormComponent},
+  { path: 'user/:id', component: UserInfoComponent },
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {enableTracing: true})],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
