@@ -9,11 +9,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class ButtonComponent {
   @Input() text!: string;
   @Input() class!: string;
-  @Input() icon!: any;
+  @Input() icon?: any;
   @Input() routerLink!: string;
-  @Output() btnClick = new EventEmitter();
-
-  onClick() {
-    this.btnClick.emit();
-  }
+  @Output() public onClick = new EventEmitter();
 }

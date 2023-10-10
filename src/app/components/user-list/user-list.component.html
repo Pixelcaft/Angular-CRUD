@@ -6,15 +6,15 @@
         <div>
             <app-button class="link-black info"
             [icon]="faInfo"
-            (btnClick)="viewUserDetails(user.id)"
+            (onClick)="viewUserDetails(user.id)"
             ></app-button>
             <app-button class="link-black update"
             [icon]="faPencil"
-            (btnClick)="updateUser(user.id)"
+            (onClick)="updateUser(user.id)"
             ></app-button>
             <app-button class="link-black delete"
             [icon]="faTrashCan"
-            (btnClick)="removeUser(user.id)"
+            (onClick)="removeUser(user.id)"
             ></app-button>
         </div>
     </div>

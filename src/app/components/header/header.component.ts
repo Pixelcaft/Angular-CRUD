@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  link() {
+  navigate() {
     const currentUrl = this.router.url;
 
     if (currentUrl === '/') {

@@ -1,89 +1,74 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { User } from 'src/app/classes/user.class';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent {
-  buttonText: string = 'Add User';
-  routerLink: string = '/form';
-  isUpdateMode: boolean = false;
-
-  firstname: string = '';
-  infix: string = '';
-  lastname: string = '';
-  streetname: string = '';
-  housenumber?: number;
-  addition: string = '';
-  residence: string = '';
-  postalcode: string = '';
+export class FormComponent implements OnInit {
+  public buttonText: string = 'Add User';
+  private routerLink: string = '/form';
+  private isUpdateMode: boolean = false;
+  public user!: User;
 
   constructor(
     private localStorageService: LocalstorageService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
-    this.activatedRoute.url.subscribe((UrlSegment) => {
-      if (
-        UrlSegment &&
-        UrlSegment.length > 0 &&
-        UrlSegment[0].path === 'update-user'
-      ) {
-        const userId = +this.activatedRoute.snapshot.params['id'];
-        const userData = this.localStorageService.getUserDataById(userId);
+    this.activatedRoute.url.subscribe(() => {
+        const userId = this.activatedRoute.snapshot.params['id'];
 
-        if (userData) {
-          this.firstname = userData.firstname;
-          this.infix = userData.infix;
-          this.lastname = userData.lastname;
-          this.streetname = userData.streetname;
-          this.housenumber = userData.housenumber;
-          this.addition = userData.addition;
-          this.residence = userData.residence;
-          this.postalcode = userData.postalcode;
+        if (userId) {
+          this.getUserById(userId);
+          this.isUpdateMode = true;
+          this.buttonText = 'Update';
+        } else {
+          this.createEmptyUser();
         }
+      
+    });
+  }
+  private getUserById(userId: string) {
+    const userData = this.localStorageService.getUserDataById(userId);
 
-        this.isUpdateMode = true;
-        this.buttonText = 'Update';
-      }
+    if (userData) {
+      this.user = new User(userData);
+    }
+  }
+
+  private createEmptyUser(){
+    this.user = new User({
+      firstname: '',
+      infix: '',
+      lastname: '',
+      streetname: '',
+      housenumber: '',
+      addition: '',
+      residence: '',
+      postalcode: '',
     });
   }
 
-  submitForm() {
-    const UserData = {
-      firstname: this.firstname,
-      infix: this.infix,
-      lastname: this.lastname,
-      streetname: this.streetname,
-      housenumber: this.housenumber,
-      addition: this.addition,
-      residence: this.residence,
-      postalcode: this.postalcode,
-    };
-    
-    if (this.isUpdateMode) {
-      const userId = +this.activatedRoute.snapshot.params['id'];
-      this.localStorageService.updateUserDataById(userId, UserData);
-    } else {
-      this.localStorageService.addFormData(UserData);
-    }
 
+  ngOnInit() {
+  }
+
+  submitForm() {
+    if (this.isUpdateMode) {
+      const userId = this.activatedRoute.snapshot.params['id'];
+      this.localStorageService.updateUserDataById(userId, this.user);
+    } else {
+      this.localStorageService.addFormData(this.user);
+    }
 
     this.backIndexPagina();
   }
 
   backIndexPagina() {
-    const currentUrl = this.router.url;
-
-    if (currentUrl === '/add-user') {
-      this.routerLink = '/';
-    } else if (currentUrl.startsWith('/update-user')) {
-      this.routerLink = '/'
-    }
-
-    this.router.navigate([this.routerLink]);
+    this.router.navigate(['/']);
   }
 }

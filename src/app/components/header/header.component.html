@@ -1,13 +1,11 @@
-<header>
-    <h1>Hallo</h1>
+<header class="d-flex flex-row-reverse p-1">
     <div class="button-place">
         <app-button
         [class]="'btn-primary'"
         [text]="buttonText"
-        (btnClick)="link()"
+        (onClick)="navigate()"
         >
         </app-button>
     </div>
-
 </header>
 

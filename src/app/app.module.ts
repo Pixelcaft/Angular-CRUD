@@ -11,7 +11,6 @@ import { FormComponent } from './components/form/form.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AddUserComponent } from './components/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import { AddUserComponent } from './components/add-user/add-user.component';
     MainComponent,
     FormComponent,
     UserInfoComponent,
-    UserListComponent,
-    AddUserComponent
+    UserListComponent
   ],
   imports: [
     BrowserModule,

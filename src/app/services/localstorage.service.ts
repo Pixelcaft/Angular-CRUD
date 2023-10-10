@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { User } from '../classes/user.class';
 
 @Injectable({
   providedIn: 'root'
@@ -8,21 +9,21 @@ data: any[] = [];
 
   constructor() {}
 
-  generatieUniqueNumber() {
+  private generatieUniqueNumber(): string {
     const tellerValue = localStorage.getItem("teller");
     let teller = tellerValue ? parseInt(tellerValue, 10) : 0;
     teller++;
     localStorage.setItem("teller", teller.toString());
-    return teller;
+    return teller.toString();
   }
   
-  addFormData(UserData: any) {
+  addFormData(user: User) {
     const existingData = this.getAllUserData();
 
     const uniqueId = this.generatieUniqueNumber();
-    UserData.id = uniqueId;
+    user.id = uniqueId;
 
-    existingData.push(UserData);
+    existingData.push(user);
     localStorage.setItem('UserData', JSON.stringify(existingData));
   }
 
@@ -31,9 +32,9 @@ data: any[] = [];
     return dataString ? JSON.parse(dataString) : [];
   } 
 
-  getUserDataById(userId: number): any {
+  getUserDataById(userId: any): any {
     const userData = this.getAllUserData();
-    return userData.find(user => user.id === userId);
+    return userData.find(user => user.id == userId);
   }
 
   removeUserById(userId: number) {
