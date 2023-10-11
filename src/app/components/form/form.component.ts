@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/classes/user.class';
 
 @Component({
@@ -8,9 +8,8 @@ import { User } from 'src/app/classes/user.class';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit {
+export class FormComponent {
   public buttonText: string = 'Add User';
-  private routerLink: string = '/form';
   private isUpdateMode: boolean = false;
   public user!: User;
 
@@ -20,16 +19,15 @@ export class FormComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     this.activatedRoute.url.subscribe(() => {
-        const userId = this.activatedRoute.snapshot.params['id'];
+      const userId = this.activatedRoute.snapshot.params['id'];
 
-        if (userId) {
-          this.getUserById(userId);
-          this.isUpdateMode = true;
-          this.buttonText = 'Update';
-        } else {
-          this.createEmptyUser();
-        }
-      
+      if (userId) {
+        this.getUserById(userId);
+        this.isUpdateMode = true;
+        this.buttonText = 'Update';
+      } else {
+        this.createEmptyUser();
+      }
     });
   }
   private getUserById(userId: string) {
@@ -40,7 +38,7 @@ export class FormComponent implements OnInit {
     }
   }
 
-  private createEmptyUser(){
+  private createEmptyUser() {
     this.user = new User({
       firstname: '',
       infix: '',
@@ -53,11 +51,7 @@ export class FormComponent implements OnInit {
     });
   }
 
-
-  ngOnInit() {
-  }
-
-  submitForm() {
+  public submitForm() {
     if (this.isUpdateMode) {
       const userId = this.activatedRoute.snapshot.params['id'];
       this.localStorageService.updateUserDataById(userId, this.user);
@@ -68,7 +62,7 @@ export class FormComponent implements OnInit {
     this.backIndexPagina();
   }
 
-  backIndexPagina() {
+  private backIndexPagina() {
     this.router.navigate(['/']);
   }
 }

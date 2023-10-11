@@ -13,12 +13,12 @@ import { LocalstorageService } from 'src/app/services/localstorage.service';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit {
-  faPencil = faPencil;
-  faInfo = faInfo;
-  faTrashCan = faTrashCan;
+  public faPencil = faPencil;
+  public faInfo = faInfo;
+  public faTrashCan = faTrashCan;
 
-  routerLink: string = '';
-  users?: any[];
+  private routerLink: string = '';
+  public users?: any[];
 
   constructor(
     private router: Router,
@@ -29,7 +29,7 @@ export class UserListComponent implements OnInit {
     this.users = this.localStorageService.getAllUserData();
   }
 
-  viewUserDetails(userId: number) {
+  public viewUserDetails(userId: number) {
     const currentUrl = this.router.url;
 
     if (currentUrl === '/') {
@@ -40,13 +40,13 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  removeUser(userId: number) {
+  public removeUser(userId: number) {
     this.localStorageService.removeUserById(userId);
 
     this.users = this.localStorageService.getAllUserData();
   }
 
-  updateUser(userId: number) {
+  public updateUser(userId: number) {
     const currentUrl = this.router.url;
 
     if (currentUrl === '/') {

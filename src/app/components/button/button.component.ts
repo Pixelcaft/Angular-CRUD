@@ -7,9 +7,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
-  @Input() text!: string;
-  @Input() class!: string;
-  @Input() icon?: any;
-  @Input() routerLink!: string;
+  @Input() public text!: string;
+  @Input() public class!: string;
+  @Input() public icon?: any;
+  @Input() public routerLink!: string;
   @Output() public onClick = new EventEmitter();
 }

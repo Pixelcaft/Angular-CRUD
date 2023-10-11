@@ -8,8 +8,8 @@ import { LocalstorageService } from 'src/app/services/localstorage.service';
   styleUrls: ['./user-info.component.scss']
 })
 export class UserInfoComponent implements OnInit {
-  userId?: number;
-  userDetails: any;
+  private userId?: number;
+  public userDetails: any;
 
   constructor(private route: ActivatedRoute, private localStorageService: LocalstorageService ) {}
 
