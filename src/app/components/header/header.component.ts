@@ -25,14 +25,9 @@ export class HeaderComponent implements OnInit {
 
     if (currentUrl === '/') {
       this.routerLink = '/add-user';
-    } else if (currentUrl === '/add-user') {
-      this.routerLink = '/';
-    } else if (currentUrl.startsWith('/user/')) {
-      this.routerLink = '/';
-    } else if (currentUrl.startsWith('/update-user')) {
-      this.routerLink = '/';
+    } else {
+      this.routerLink = '/'
     }
-
     this.router.navigate([this.routerLink]);
   }
 
@@ -41,12 +36,8 @@ export class HeaderComponent implements OnInit {
 
     if (currentUrl === '/') {
       this.buttonText = 'Add User';
-    } else if (currentUrl === '/add-user') {
-      this.buttonText = 'Back';
-    } else if (currentUrl.startsWith('/user/')) {
-      this.buttonText = 'Back';
-    } else if (currentUrl.startsWith('/update-user')) {
-      this.buttonText = 'Back';
+    } else {
+      this.buttonText = 'Back'
     }
   }
 }
