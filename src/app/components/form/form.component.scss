@@ -3,3 +3,7 @@
     margin-top: 10px;
 }
 
+input.ng-touched.ng-invalid {
+    border: 1px solid red;
+}
+

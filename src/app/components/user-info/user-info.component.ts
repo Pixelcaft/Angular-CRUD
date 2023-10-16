@@ -1,24 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/classes/user.class';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 
 @Component({
   selector: 'app-user-info',
   templateUrl: './user-info.component.html',
-  styleUrls: ['./user-info.component.scss']
+  styleUrls: ['./user-info.component.scss'],
 })
 export class UserInfoComponent implements OnInit {
-  private userId?: number;
-  public userDetails: any;
+  public user!: User;
 
-  constructor(private route: ActivatedRoute, private localStorageService: LocalstorageService ) {}
+  constructor(
+    private route: ActivatedRoute,
+    private localStorageService: LocalstorageService
+  ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.userId = +params['id'];
+    this.route.params.subscribe((params) => {
+      const id = params['id'];
+      const userDetails = this.localStorageService.getUserDataById(id);
 
-      this.userDetails = this.localStorageService.getUserDataById(this.userId);
-    })    
+      if (userDetails) {
+        this.user = new User(userDetails);
+      }
+    });
   }
-
 }

@@ -1,7 +1,7 @@
   <form class="row g-3">
     <div class="col-md-4">
       <label for="firstname" class="form-label">Firstname*</label>
-      <input type="text" class="form-control" id="firstname" name="firstname" [(ngModel)]="user.firstname"/>
+      <input type="text" class="form-control" id="firstname" name="firstname" [(ngModel)]="user.firstname" required/>
     </div>
     <div class="col-md-2">
       <label for="infix" class="form-label">Infix</label>
@@ -9,27 +9,27 @@
     </div>
     <div class="col-md-4">
       <label for="lastname" class="form-label">Lastname*</label>
-      <input type="text" class="form-control" id="lastname" name="lastname"  [(ngModel)]="user.lastname"/>
+      <input type="text" class="form-control" id="lastname" name="lastname"  [(ngModel)]="user.lastname" required/>
     </div>
     <div class="col-md-4">
       <label for="streetname" class="form-label">Streen Name*</label>
-      <input type="text" class="form-control" id="streetname" name="streetname" [(ngModel)]="user.streetname"/>
+      <input type="text" class="form-control" id="streetname" name="streetname" [(ngModel)]="user.streetname" required/>
     </div>
     <div class="col-md-2">
       <label for="housenumber" class="form-label">House Number*</label>
-      <input type="number" class="form-control" id="housenumber" name="housenumber" [(ngModel)]="user.housenumber"/>
+      <input type="number" class="form-control" id="housenumber" name="housenumber" [(ngModel)]="user.housenumber" required/>
     </div>
     <div class="col-md-4">
       <label for="addition" class="form-label">Addition</label>
       <input type="text" class="form-control" id="addition" name="addition" [(ngModel)]="user.addition"/>
     </div>
-    <div class="col-10">
-      <label for="residence" class="form-label">Residence*</label>
-      <input type="text" class="form-control" id="residence" name="residence" [(ngModel)]="user.residence"/>
-    </div>
-    <div class="col-10">
+    <div class="col-md-5">
       <label for="postalcode" class="form-label">Postal Code*</label>
-      <input type="text" class="form-control" id="postalcode" name="postalcode" [(ngModel)]="user.postalcode"/>
+      <input type="text" class="form-control" id="postalcode" name="postalcode" [(ngModel)]="user.postalcode" minlength="6" maxlength="7" required/>
+    </div>
+    <div class="col-md-5">
+      <label for="residence" class="form-label">Residence*</label>
+      <input type="text" class="form-control" id="residence" name="residence" [(ngModel)]="user.residence" required/>
     </div>
     <div class="col-10">
         <app-button
