@@ -37,7 +37,7 @@ data: any[] = [];
     return userData.find(user => user.id == userId);
   }
 
-  removeUserById(userId: number) {
+  removeUserById(userId: string) {
     const userData = this.getAllUserData();
     const updateData = userData.filter(user => user.id !== userId);
     localStorage.setItem('UserData', JSON.stringify(updateData));

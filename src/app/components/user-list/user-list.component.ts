@@ -6,6 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
+import { User } from 'src/app/classes/user.class';
 
 @Component({
   selector: 'app-user-list',
@@ -18,7 +19,7 @@ export class UserListComponent implements OnInit {
   public faTrashCan = faTrashCan;
 
   private routerLink: string = '';
-  public users?: any[];
+ public users!: User[];
 
   constructor(
     private router: Router,
@@ -26,10 +27,17 @@ export class UserListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.users = this.localStorageService.getAllUserData();
+    const userData = this.localStorageService.getAllUserData();
+
+    if (userData) {
+      this.users = userData.map(userData => new User(userData));
+    }
   }
 
-  public viewUserDetails(userId: number) {
+
+
+
+  public viewUserDetails(userId: string) {
     const currentUrl = this.router.url;
 
     if (currentUrl === '/') {
@@ -40,13 +48,17 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  public removeUser(userId: number) {
+  public removeUser(userId: string) {
     this.localStorageService.removeUserById(userId);
 
-    this.users = this.localStorageService.getAllUserData();
+    const userToDelete = this.localStorageService.getAllUserData();
+
+    if (userToDelete) {
+      this.users = userToDelete.map(userToDelete => new User(userToDelete));
+    }
   }
 
-  public updateUser(userId: number) {
+  public updateUser(userId: string) {
     const currentUrl = this.router.url;
 
     if (currentUrl === '/') {
