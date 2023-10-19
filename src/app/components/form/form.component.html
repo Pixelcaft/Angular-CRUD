@@ -1,4 +1,4 @@
-  <form class="row g-3">
+  <form class="row g-3" *ngIf="user">
     <div class="col-md-4">
       <label for="firstname" class="form-label">Firstname*</label>
       <input type="text" class="form-control" id="firstname" name="firstname" [(ngModel)]="user.firstname" required/>

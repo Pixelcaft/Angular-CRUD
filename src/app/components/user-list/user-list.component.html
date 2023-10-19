@@ -3,19 +3,25 @@
         <div class="mx-3 d-flex">
             <p class="mt-1">{{user.fullName}}</p>
         </div>
+
         <div>
-            <app-button class="link-black info"
-            [icon]="faInfo"
-            (onClick)="viewUserDetails(user.id)" *ngIf="user.id"
-            ></app-button>
-            <app-button class="link-black update"
-            [icon]="faPencil"
-            (onClick)="updateUser(user.id)" *ngIf="user.id"
-            ></app-button>
-            <app-button class="link-black delete"
-            [icon]="faTrashCan"
-            (onClick)="removeUser(user.id)" *ngIf="user.id"
-            ></app-button>
+            <app-button 
+                class="link-black info"
+                [icon]="faInfo"
+                (onClick)="viewUserDetails(user)">
+            </app-button>
+
+            <app-button 
+                class="link-black update"
+                [icon]="faPencil"
+                (onClick)="editeUser(user)">
+            </app-button>
+            
+            <app-button
+                class="link-black delete"
+                [icon]="faTrashCan"
+                (onClick)="removeUser(user)">
+            </app-button>
         </div>
     </div>
 </div>

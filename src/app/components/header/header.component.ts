@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.updateButtonText();
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  public navigate() {
+  public navigate(): void {
     const currentUrl = this.router.url;
 
     if (currentUrl === '/') {
@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([this.routerLink]);
   }
 
-  private updateButtonText() {
+  private updateButtonText(): void {
     const currentUrl = this.router.url;
 
     if (currentUrl === '/') {

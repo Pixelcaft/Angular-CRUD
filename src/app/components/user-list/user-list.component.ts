@@ -5,8 +5,8 @@ import {
   faPencil,
 } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
-import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { User } from 'src/app/classes/user.class';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -18,54 +18,43 @@ export class UserListComponent implements OnInit {
   public faInfo = faInfo;
   public faTrashCan = faTrashCan;
 
-  private routerLink: string = '';
- public users!: User[];
+  public users!: User[];
 
   constructor(
     private router: Router,
-    private localStorageService: LocalstorageService
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    const userData = this.localStorageService.getAllUserData();
-
-    if (userData) {
-      this.users = userData.map(userData => new User(userData));
-    }
+    this.getUsers()
   }
 
+  private getUsers(): void {
+    this.users = this.userService.getUsers()
+  }
 
+  public viewUserDetails(user: User): void {
+    const userId = user.id;
 
-
-  public viewUserDetails(userId: string) {
-    const currentUrl = this.router.url;
-
-    if (currentUrl === '/') {
+    if (userId) {
       this.router.navigate(['/user', userId]);
     }
-    if (this.routerLink) {
-      this.router.navigate([this.routerLink]);
+  }
+
+  public removeUser(user: User): void {
+    const userId = user.id;
+
+    if (userId) {
+      this.userService.deleteUser(userId);
+      this.getUsers();
     }
   }
 
-  public removeUser(userId: string) {
-    this.localStorageService.removeUserById(userId);
+  public editeUser(user: User): void {
+    const userId = user.id;
 
-    const userToDelete = this.localStorageService.getAllUserData();
-
-    if (userToDelete) {
-      this.users = userToDelete.map(userToDelete => new User(userToDelete));
-    }
-  }
-
-  public updateUser(userId: string) {
-    const currentUrl = this.router.url;
-
-    if (currentUrl === '/') {
+    if (userId) {
       this.router.navigate(['/update-user', userId]);
-    }
-    if (this.routerLink) {
-      this.router.navigate([this.routerLink]);
     }
   }
 }

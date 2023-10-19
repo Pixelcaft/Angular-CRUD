@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/classes/user.class';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-form',
@@ -11,37 +11,30 @@ import { User } from 'src/app/classes/user.class';
 export class FormComponent {
   public buttonText: string = 'Add User';
   private isUpdateMode: boolean = false;
-  public user!: User;
+  public user!: User | null;
 
 
   constructor(
-    private localStorageService: LocalstorageService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService
   ) {
     this.activatedRoute.url.subscribe(() => {
       const userId = this.activatedRoute.snapshot.params['id'];
 
       if (userId) {
-        this.getUserById(userId);
+        this.user = this.userService.getUserById(userId);
         this.isUpdateMode = true;
         this.buttonText = 'Update';
       } else {
-        this.createEmptyUser();
+        this.createEmptyUser();        
       }
     });
   }
 
-  private getUserById(userId: string) {
-    const userData = this.localStorageService.getUserDataById(userId);
-
-    if (userData) {
-      this.user = new User(userData);
-    }
-  }
-
-  private createEmptyUser() {
+  private createEmptyUser(): void {
     this.user = new User({
+      id: new Date().getTime().toString(),
       firstname: '',
       infix: '',
       lastname: '',
@@ -53,35 +46,28 @@ export class FormComponent {
     });
   }
 
-  public submitForm() {
-    if (this.inFormValid()) {
-      const UserData = this.user;
+  public submitForm(): void {
+    if (this.isFormValid()) {
 
       if (this.isUpdateMode) {
-        const userId = this.activatedRoute.snapshot.params['id'];
-        this.localStorageService.updateUserDataById(userId, UserData);
+        this.userService.updateUser(this.user!);
       } else {
-        this.localStorageService.addFormData(UserData);
+        this.userService.addUser(this.user!);
       }
-
-      this.backIndexPagina();
+      this.router.navigate(['/']);
     } else {
       alert('Fill in all required fields before submitting the form.');
     }
   }
 
-  private inFormValid(): boolean {
+  private isFormValid(): boolean {
     return (
-      !!this.user.firstname &&
-      !!this.user.lastname &&
-      !!this.user.streetname &&
-      !!this.user.housenumber &&
-      !!this.user.residence &&
-      !!this.user.postalcode
+      !!this.user!.firstname &&
+      !!this.user!.lastname &&
+      !!this.user!.streetname &&
+      !!this.user!.housenumber &&
+      !!this.user!.residence &&
+      !!this.user!.postalcode
     );
-  }
-
-  private backIndexPagina() {
-    this.router.navigate(['/']);
   }
 }
